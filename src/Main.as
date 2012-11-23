@@ -24,23 +24,30 @@ package
 	 */
 	public class Main extends Sprite
 	{
-		
+		//http://zhidao.baidu.com/question/399627144.html
 		public function Main():void
 		{
 			var score:Number = 0;
 			var combo:int = 0;
 			var oTF:TextField = new TextField();
 			var sTF:TextField = new TextField();
+			var tTF:TextField = new TextField();
 			var inText:String = "";
 			var sightPanel:Sprite = new Sprite();
 			var sight:Shape = new Shape();
 			
 			addChild(sTF);
 			addChild(oTF);
+			addChild(tTF);
 			sTF.defaultTextFormat = new TextFormat(null, 36, 0xFF9900, true, null, null, null, null, "right");
 			sTF.y = sTF.textHeight;
 			sTF.width = stage.stageWidth;
 			sTF.text = "Score:" + score;
+			
+			sTF.defaultTextFormat = new TextFormat(null, 36, 0xFF9900, true, null, null, null, null, "right");
+			sTF.y =  stage.stageHeight / 2 - 20-sTF.height;
+			sTF.width = stage.stageWidth / 5;
+			sTF.text = "";
 			
 			oTF.defaultTextFormat = new TextFormat(null, 36, 0x0099FF, true, null, null, null, null, "center");
 			oTF.width = stage.stageWidth;
@@ -96,10 +103,8 @@ package
 			function onTimer(e:TimerEvent):void
 			{
 				sight.x=10+timer.currentCount % 100/100*(sightPanel.width-20)
-				
 				if (timer.currentCount % 100 != 0)
 					return;
-				
 				if (oTF.length > 0)
 					combo = 0;
 				inText = "";
