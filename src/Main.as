@@ -32,7 +32,8 @@ package
 			var oTF:TextField = new TextField();
 			var sTF:TextField = new TextField();
 			var inText:String = "";
-			var sight:Sprite = new Sprite();
+			var sightPanel:Sprite = new Sprite();
+			var sight:Shape = new Shape();
 			
 			addChild(sTF);
 			addChild(oTF);
@@ -45,15 +46,18 @@ package
 			oTF.width = stage.stageWidth;
 			oTF.text = "GO!";
 			oTF.y = stage.stageHeight / 2;
-			sight.graphics.lineStyle(1, 0xFFFFFF);
-			sight.graphics.beginFill(0x0099FF, 0.3);
-			sight.graphics.drawRoundRect(0, 0, stage.stageWidth / 5, 20, 20, 20);
-			sight.graphics.beginFill(0xFFFFFF, 0.9);
-			sight.graphics.drawRoundRect(0.75 * sight.width, 0, 0.1 * sight.width, 20, 20, 20);
-			addChild(sight);
-			sight.x = stage.stageWidth / 2;
-			sight.y = stage.stageHeight / 2 - 20;
+			sightPanel.graphics.lineStyle(1, 0xFFFFFF);
+			sightPanel.graphics.beginFill(0x0099FF, 0.3);
+			sightPanel.graphics.drawRoundRect(0, 0, stage.stageWidth / 5, 20, 20, 20);
+			sightPanel.graphics.beginFill(0xFFFFFF, 0.9);
+			sightPanel.graphics.drawRoundRect(0.75 * sightPanel.width, 0, 0.1 * sightPanel.width, 20, 20, 20);
 			
+			sightPanel.x = stage.stageWidth / 2;
+			sightPanel.y = stage.stageHeight / 2 - 20;
+			sight.graphics.beginFill(0xFF0000);
+			sight.graphics.drawCircle(10,10, 8);
+			addChild(sightPanel);
+			sightPanel.addChild(sight);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey);
 			
 			var timer:Timer = new Timer(20, 3000);
@@ -89,8 +93,9 @@ package
 				}
 			}
 			
-			function onTimer():void
+			function onTimer(e:TimerEvent):void
 			{
+				sight.x=10+timer.currentCount % 100/100*(sightPanel.width-20)
 				
 				if (timer.currentCount % 100 != 0)
 					return;
